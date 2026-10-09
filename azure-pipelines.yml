@@ -1,3 +1,8 @@
+resources:
+  webhooks:
+    - webhook: JiraTrigger
+      connection: jira-poc-trigger
+
 trigger:
   - main
 
