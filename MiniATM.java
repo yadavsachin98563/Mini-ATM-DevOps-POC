@@ -160,10 +160,12 @@ public class MiniATM {
 
         System.out.printf(
                 "₹%.2f deposited successfully.%n",
+                amount
         );
 
         System.out.printf(
                 "New balance: ₹%.2f%n",
+                balance
         );
     }
 
@@ -192,10 +194,12 @@ public class MiniATM {
 
         System.out.printf(
                 "Please collect your cash: ₹%.2f%n",
+                amount
         );
 
         System.out.printf(
                 "Remaining balance: ₹%.2f%n",
+                balance
         );
     }
 
@@ -240,15 +244,18 @@ public class MiniATM {
                         "Transferred ₹%.2f to A/C ****%s | Balance: ₹%.2f",
                         amount,
                         beneficiaryAccount.substring(6),
+                        balance
                 )
         );
 
         System.out.printf(
                 "₹%.2f transferred successfully.%n",
+                amount
         );
 
         System.out.printf(
                 "Remaining balance: ₹%.2f%n",
+                balance
         );
     }
 
@@ -392,6 +399,7 @@ public class MiniATM {
         transactions.add(
                 String.format(
                         "Opening Balance: ₹%.2f",
+                        balance
                 )
         );
     }
