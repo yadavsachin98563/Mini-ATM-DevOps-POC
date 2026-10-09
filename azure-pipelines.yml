@@ -1,0 +1,37 @@
+trigger:
+  - main
+
+pool:
+  # Use a self-hosted agent that can reach the private ACR endpoint.
+  # Update this pool name and optional agent demand to match your setup.
+  name: Default
+  # demands:
+  #   - Agent.Name -equals poc-vm
+
+steps:
+- checkout: self
+  displayName: 'Checkout source code'
+
+- script: |
+    set -e
+    echo "Compiling Mini ATM without Maven..."
+    javac MiniATM.java
+    echo "Compilation succeeded."
+  displayName: 'Compile Java with javac'
+
+- task: AzureCLI@2
+  displayName: 'Build and Push Docker Image to Private ACR'
+  inputs:
+    azureSubscription: 'sc-azure-poc'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      set -e
+      ACR_NAME='simplejavapocacr'
+      IMAGE_NAME='mini-atm-simulator'
+      IMAGE_TAG="$(Build.BuildId)"
+      az acr login --name "$ACR_NAME"
+      docker build -t "$ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG" .
+      docker push "$ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG"
+      docker tag "$ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG" "$ACR_NAME.azurecr.io/$IMAGE_NAME:latest"
+      docker push "$ACR_NAME.azurecr.io/$IMAGE_NAME:latest"
