@@ -23,3 +23,4 @@ It assumes the Azure DevOps service connection is `sc-azure-poc`, the agent pool
 
 ## Important limitations
 This is a console application, not a browser-based web application. Its PIN, balance, and transaction list are stored in memory and reset on restart. The PIN is hard-coded and this demo must not be used for real banking or financial activity.
+# Mini-ATM-DevOps-POC
